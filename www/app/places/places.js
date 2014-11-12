@@ -13,7 +13,6 @@ angular.module('tr.places', [])
         'nav-places': {
           templateUrl: 'app/places/places.html',
           controller: function($scope) {
-            $scope.text = "hello world!"
           }
         }
       }

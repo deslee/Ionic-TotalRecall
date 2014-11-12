@@ -1,5 +1,11 @@
 <ion-view title="Total Recall">
   <ion-content class="padding">
     <h1>People</h1>
+    <div class="card">
+      <div class="item item-text-wrap" ng-repeat="object in objects">
+        <h2>{{object.name}}</h2>
+        <p>{{object.notes}}</p>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

@@ -20,7 +20,7 @@ angular.module('tr.service', [])
   }])
 
   .factory('objects', function($localstorage) {
-    return {
+    var objectsUtil = {
       add: function(object) {
         var objects = $localstorage.getObject('objects', []);
         objects.push(object);
@@ -30,5 +30,16 @@ angular.module('tr.service', [])
         return $localstorage.getObject('objects', []);
       }
     }
+    var types = ['people', 'places', 'things'];
+    types.forEach(function(e) {
+      objectsUtil[e] = function search() {
+        console.log(objectsUtil.all())
+        return objectsUtil.all().filter(function(object) {
+          console.log(object.type == e[0].toUpperCase() + e.slice(1))
+          return object.type == e[0].toUpperCase() + e.slice(1);
+        });
+      }
+    })
+    return objectsUtil;
   })
   ;

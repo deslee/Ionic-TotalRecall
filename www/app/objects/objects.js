@@ -11,11 +11,12 @@ angular.module('tr.objects', [])
       views: {
         'nav-create-object': {
           templateUrl: 'app/objects/create-object.html',
-          controller: function($scope, $localstorage, $stateParams, objects) {
+          controller: function($scope, $localstorage, $state, $stateParams, objects) {
             $scope.availableTypes = ['People', 'Places', 'Things'];
             $scope.object = {type: $stateParams.type || undefined};
             $scope.create = function(object) {
-              console.log(objects.all())
+              objects.add(object);
+              $state.go('nav.' + object.type.toLowerCase());
             }
           }
         }

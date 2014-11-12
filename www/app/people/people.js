@@ -12,8 +12,8 @@ angular.module('tr.people', [])
       views: {
         'nav-people': {
           templateUrl: 'app/people/people.html',
-          controller: function($scope) {
-            $scope.text = "hello world!"
+          controller: function($scope, objects) {
+            $scope.objects = objects.people();
           }
         }
       }

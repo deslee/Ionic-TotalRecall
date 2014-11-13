@@ -7,12 +7,12 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic',
   'tr.service',
-  'tr.objects',
   'tr.home',
   'tr.people',
   'tr.places',
   'tr.things',
-  'tr.emergency'
+  'tr.emergency',
+  'tr.directives'
 ])
 
 .run(function($ionicPlatform) {
@@ -42,16 +42,6 @@ angular.module('starter', ['ionic',
       abstract: true,
       templateUrl: "app/tabs.html",
       controller: function($scope, $state, $localstorage, $location, objects) {
-        $scope.newObject = function() {
-          var type = $state.current.name.split('.')[1];
-          if ($state.current.name != 'nav.manage-object') {
-            $state.go('nav.manage-object', {
-              type: type[0].toUpperCase() + type.slice(1),
-              crud: 'create'
-            }).then(function($state) {
-          });
-          }
-        }
         var page = $scope.navPage = {title: "Total Recall"};
         $scope.objectName = 'Object'
         page.title = 'Total Recall'
@@ -65,6 +55,12 @@ angular.module('starter', ['ionic',
             case 'nav.people':
               $scope.objectName = 'person';
               page.subtitle = 'People'
+              break;
+            case 'nav.create-person':
+              page.subtitle = 'Create Person'
+              break;
+            case 'nav.modify-person':
+              page.subtitle = 'Modify Person'
               break;
             case 'nav.places':
               $scope.objectName = 'place'
@@ -80,12 +76,6 @@ angular.module('starter', ['ionic',
               break;
           }
         });
-
-        $scope.delete = function(object) {
-          if(confirm("Are you sure?")) {
-            objects.delete(object.id);
-          }
-        }
       }
     });
 

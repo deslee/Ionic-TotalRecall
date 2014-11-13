@@ -1,0 +1,20 @@
+<tr-view>
+  <div class="list" id="create-object-list">
+    <div class="item item-input">
+      <input type="text" placeholder="Name" ng-model="object.name">
+    </div>
+    <div class="item item-input">
+      <textarea type="text" class="notes" placeholder="Notes" ng-model="object.notes"></textarea>
+    </div>
+    <div class="item item-toggle">
+       Emergency
+       <label class="toggle toggle-assertive">
+         <input type="checkbox" ng-model="object.emergency">
+         <div class="track">
+           <div class="handle"></div>
+         </div>
+       </label>
+    </div>
+  </div>
+  <button class="button button-full button-positive" ng-click="create(object)">Save</button>
+</tr-view>

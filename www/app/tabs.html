@@ -4,15 +4,6 @@
   navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top">
-<ion-nav-buttons side="right">
-  <button class="button ion-plus-round" ng-click="newObject()">
-    New {{objectName}}
-  </button>
-</ion-nav-buttons>
-
-  <ion-tab title="Dashboard" icon="icon ion-home" href="#/home">
-    <ion-nav-view name="nav-home"></ion-nav-view>
-  </ion-tab>
 
   <ion-tab title="People" icon="icon ion-person" href="#/people">
     <ion-nav-view name="nav-people"></ion-nav-view>
@@ -30,12 +21,8 @@
     <ion-nav-view name="nav-emergency"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab class="hide">
-    <ion-nav-view name="nav-create-object"></ion-nav-view>
-  </ion-tab>
-
-  <ion-tab class="hide">
-    <ion-nav-view name="nav-delete-object"></ion-nav-view>
+  <ion-tab class="hide" title="Dashboard" icon="icon ion-home" href="#/home">
+    <ion-nav-view name="nav-home"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>

@@ -1,25 +1,27 @@
-<ion-view title="{{navPage.title}}">
-  <div class="bar bar-subheader">
-    <h2 class="title">{{navPage.subtitle}}</h2>
-  </div>
-  <ion-content class="has-header has-subheader padding">
-    <div class="card" ng-repeat="object in objects">
-      <div class="item item-avatar">
-        <img src="http://placehold.it/150x150" />
-        <h2>{{object.name}}</h2>
-        <p>{{object.notes}}</p>
-      </div>
+<tr-view>
 
-       <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" ui-sref="nav.manage-object({crud: 'modify', id: object.id})">
-          <i class="icon ion-edit"></i>
-          Modify
-        </a>
-        <a class="tab-item" ng-click="delete(object)">
-          <i class="icon ion-trash-b"></i>
-          Delete
-        </a>
-      </div>
+  <ion-nav-buttons side="right">
+    <button class="button ion-plus-round" ui-sref="nav.create-person">
+      New {{objectName}}
+    </button>
+  </ion-nav-buttons>
+
+  <div class="card" ng-repeat="object in objects">
+    <div class="item item-avatar">
+      <img src="http://placehold.it/150x150" />
+      <h2>{{object.name}}</h2>
+      <p>{{object.notes}}</p>
     </div>
-  </ion-content>
-</ion-view>
+
+     <div class="item tabs tabs-secondary tabs-icon-left">
+      <a class="tab-item" ui-sref="nav.modify-person({id: object.id})">
+        <i class="icon ion-edit"></i>
+        Modify
+      </a>
+      <a class="tab-item" ng-click="delete(object)">
+        <i class="icon ion-trash-b"></i>
+        Delete
+      </a>
+    </div>
+  </div>
+</tr-view>

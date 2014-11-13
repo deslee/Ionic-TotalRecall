@@ -56,13 +56,15 @@ angular.module('tr.service', [])
         return $localstorage.getObject('objects', []);
       },
     }
-    var types = ['people', 'places', 'things'];
-    types.forEach(function(e) {
-      objectsUtil[e] = function search($scope) {
-        return objectsUtil.all().filter(function(object) {
-          return object.type == e[0].toUpperCase() + e.slice(1);
-        });
-      }
+    var types = {person: 'people', place: 'places', thing: 'things', emergency: 'emergencies'};
+    Object.keys(types).forEach(function(type) {
+        var singular = type;
+        var plural = types[singular];
+        objectsUtil[plural] = function search() {
+          return objectsUtil.all().filter(function(object) {
+            return object.type == singular[0].toUpperCase() + singular.slice(1);
+          });
+        }
     })
     return objectsUtil;
   })

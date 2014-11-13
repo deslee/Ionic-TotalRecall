@@ -6,7 +6,7 @@
 <ion-tabs class="tabs-icon-top">
 <ion-nav-buttons side="right">
   <button class="button ion-plus-round" ng-click="newObject()">
-    New object
+    New {{objectName}}
   </button>
 </ion-nav-buttons>
 
@@ -33,4 +33,9 @@
   <ion-tab class="hide">
     <ion-nav-view name="nav-create-object"></ion-nav-view>
   </ion-tab>
+
+  <ion-tab class="hide">
+    <ion-nav-view name="nav-delete-object"></ion-nav-view>
+  </ion-tab>
+
 </ion-tabs>

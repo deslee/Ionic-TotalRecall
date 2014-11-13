@@ -41,14 +41,42 @@ angular.module('starter', ['ionic',
     .state('nav', {
       abstract: true,
       templateUrl: "app/tabs.html",
-      controller: function($scope, $state, $localstorage) {
+      controller: function($scope, $state, $localstorage, objects) {
         $scope.newObject = function() {
           var type = $state.current.name.split('.')[1];
-
-          $state.go('nav.create-object', {type: type[0].toUpperCase() + type.slice(1)}).then(function($state) {
+          if ($state.current.name != 'nav.manage-object') {
+            $state.go('nav.manage-object', {
+              type: type[0].toUpperCase() + type.slice(1),
+              crud: 'create'
+            }).then(function($state) {
           });
+          }
+        }
+
+        $scope.objectName = 'Object'
+
+        $scope.$on('$stateChangeSuccess', function() {
+          switch($state.current.name) {
+            case 'nav.people':
+              $scope.objectName = 'person'
+              break;
+            case 'nav.places':
+              $scope.objectName = 'place'
+              break;
+            case 'nav.things':
+              $scope.objectName = 'thing'
+              break;
+          }
+        });
+
+        $scope.delete = function(object) {
+          if(confirm("Are you sure?")) {
+            objects.delete(object.id);
+          }
         }
       }
-    })
+    });
+
+    $urlRouterProvider.otherwise('/home');
 
 });

@@ -6,16 +6,28 @@ angular.module('tr.objects', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    .state('nav.create-object', {
-      url: '/create?type',
+    .state('nav.manage-object', {
+      url: '/object/:crud?type&id',
       views: {
         'nav-create-object': {
           templateUrl: 'app/objects/create-object.html',
           controller: function($scope, $localstorage, $state, $stateParams, objects) {
+            $scope.crud = $stateParams.crud;
+
             $scope.availableTypes = ['People', 'Places', 'Things'];
             $scope.object = {type: $stateParams.type || undefined};
+
+            if ($scope.crud == 'modify') {
+              $scope.object = objects.get($stateParams.id);
+              console.log($scope.object)
+            }
             $scope.create = function(object) {
-              objects.add(object);
+              if ($scope.crud == 'create') {
+                objects.add(object);
+              }
+              else {
+                objects.modify(object);
+              }
               $state.go('nav.' + object.type.toLowerCase());
             }
           }

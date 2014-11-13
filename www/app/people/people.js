@@ -13,6 +13,9 @@ angular.module('tr.people', [])
         'nav-people': {
           templateUrl: 'app/people/people.html',
           controller: function($scope, objects) {
+            $scope.$on('objectsAdded', function() {
+              $scope.objects = objects.people();
+            });
             $scope.objects = objects.people();
           }
         }

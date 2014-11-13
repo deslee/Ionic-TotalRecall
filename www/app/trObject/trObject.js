@@ -1,7 +1,40 @@
-var types = {person: 'people', place: 'places', thing: 'things', emergency: 'emergencies'};
-
 angular.module('tr.objects', [])
 .config(function($stateProvider, $urlRouterProvider) {
+
+  var types = {person: 'people', place: 'places', thing: 'things', emergency: 'emergencies'};
+
+  var icon = function(scope, $injector, object) {
+
+    var $ionicModal = $injector.get('$ionicModal');
+    $ionicModal.fromTemplateUrl('app/directives/imagepicker.html', {
+      scope: scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      scope.modal = modal;
+    })
+
+    var getPicture = function(source) {
+      return function() {
+        navigator.camera.getPicture(function(data) {
+          scope.modal.hide();
+          scope.$apply(function() {
+            object.icon = "data:image/png;base64," + data
+          });
+        }, function() {console.log('err'); console.log(arguments);}, { quality: 50,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        sourceType: source });
+      }
+    }
+
+    if (navigator.camera) {
+      scope.picture = getPicture(navigator.camera.PictureSourceType.CAMERA);
+      scope.gallery = getPicture(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    }
+    return function() {
+      scope.modal.show()
+    }
+  };
+
   Object.keys(types).forEach(function(singular) {
     var plural = types[singular];
     var type = singular[0].toUpperCase() + singular.slice(1);
@@ -12,13 +45,17 @@ angular.module('tr.objects', [])
     };
     listState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/list.html',
-      controller: function($scope, $state, objects, trObject, setTitle) {
+      controller: function($scope, $state, $injector, objects, trObject, setTitle) {
         $scope.singular = singular;
         setTitle('List of ' + plural)
         $scope.$on('objectsAdded', function() {
           $scope.objects = objects[plural]();
         });
+        console.log(objects)
+        console.log(plural)
+        console.log(objects[plural])
         $scope.objects = objects[plural]();
+        console.log($scope.objects)
 
         $scope.delete = function(object) {
           if(confirm("Are you sure?")) {
@@ -42,13 +79,15 @@ angular.module('tr.objects', [])
     }
     createState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/form.html',
-      controller: function($scope, $state, objects, setTitle) {
+      controller: function($scope, $state, $injector, objects, setTitle) {
+        $scope.singular = singular;
         $scope.object = {type: type}
         setTitle('Create a ' + singular)
         $scope.save = function(object) {
           objects.add(object);
           $state.go('nav.' + plural);
         }
+        $scope.icon = icon($scope, $injector, $scope.object);
       }
     };
 
@@ -58,13 +97,15 @@ angular.module('tr.objects', [])
     }
     modifyState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/form.html',
-      controller: function($scope, $state, $stateParams, objects, setTitle) {
+      controller: function($scope, $state, $injector, $stateParams, objects, setTitle) {
+        $scope.singular = singular;
         setTitle('Modify a ' + singular)
-        $scope.object = objects.get($stateParams.id)
+        $scope.object = objects.get($stateParams.id);
         $scope.save = function(object) {
           objects.modify(object);
           $state.go('nav.' + plural);
         }
+        $scope.icon = icon($scope, $injector, $scope.object);
       }
     }
 

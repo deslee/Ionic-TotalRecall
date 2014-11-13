@@ -8,7 +8,7 @@
 
   <div class="card" ng-repeat="object in objects">
     <div class="item item-avatar">
-      <img src="http://placehold.it/150x150" />
+      <img src="{{object.icon ? object.icon : 'img/ionic.png'}}" class="object-icon" />
       <h2>{{object.name}}</h2>
       <p>{{object.notes}}</p>
     </div>

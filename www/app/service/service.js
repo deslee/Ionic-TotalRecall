@@ -1,4 +1,4 @@
-var types = {person: 'people', place: 'places', thing: 'things', emergency: 'emergencies'};
+var types = {person: 'people', place: 'places', thing: 'things'};
 
 angular.module('tr.service', [])
   .factory('$localstorage', ['$window', function($window) {
@@ -59,6 +59,12 @@ angular.module('tr.service', [])
       all: function() {
         return $localstorage.getObject('objects', []);
       },
+      emergencies: function() {
+        return objectsUtil.all().filter(function(o) {
+          console.log(o)
+          return Boolean(o.emergency);
+        });
+      }
     }
     Object.keys(types).forEach(function(type) {
         var singular = type;

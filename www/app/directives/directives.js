@@ -7,3 +7,20 @@ angular.module('tr.directives', [])
       transclude: true
     }
   })
+
+  .directive('showForOnly', function() {
+    return {
+      link: function(scope, elem, attr) {
+        var singular = scope.$eval('singular');
+        if (attr['showForOnly'].toLowerCase().split(',').filter(function(e) {
+          return e == singular
+        }).length) {
+        }
+        else {
+          $(elem).hide()
+        }
+      },
+
+      scope: false
+    }
+  })

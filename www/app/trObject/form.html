@@ -1,11 +1,43 @@
 <tr-view>
-  <div class="list" id="create-object-list">
+  <div class="list">
+
+
     <div class="item item-input">
       <input type="text" placeholder="Name" ng-model="object.name">
     </div>
-    <div class="item item-input">
-      <textarea type="text" class="notes" placeholder="Notes" ng-model="object.notes"></textarea>
+
+    <br />
+
+    <!--
+    Email, Phone, Address
+      Types: Person, Place
+    -->
+    <div show-for-only="Person,Place">
+      <div class="item item-input">
+        <input type="email" placeholder="Email" ng-model="object.email">
+      </div>
+
+      <div class="item item-input">
+        <input type="email" placeholder="Phone" ng-model="object.phone">
+      </div>
+
+      <div class="item item-input">
+        <input type="text" placeholder="Street" ng-model="object.address.street">
+      </div>
+      <div class="item item-input">
+        <input type="text" placeholder="City" ng-model="object.address.city">
+        <input type="text" placeholder="Zip" ng-model="object.address.zip">
+      </div>
+
+      <br />
     </div>
+
+    <div class="item item-input">
+      <textarea class="notes" placeholder="Notes" ng-model="object.notes"></textarea>
+    </div>
+
+  <br />
+
     <div class="item item-toggle">
        Emergency
        <label class="toggle toggle-assertive">
@@ -15,6 +47,14 @@
          </div>
        </label>
     </div>
+
   </div>
+
+
+        <span class="input-label">Icon:</span>
+          <img src="{{object.icon}}" class="object-icon" alt="No icon selected" /><br />
+        <button type="button" ng-click="icon()" class="button">Add new icon</button>
+
+
   <button class="button button-full button-positive" ng-click="save(object)">Save</button>
 </tr-view>

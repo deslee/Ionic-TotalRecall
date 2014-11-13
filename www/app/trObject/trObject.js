@@ -2,16 +2,19 @@ var types = {person: 'people', place: 'places', thing: 'things', emergency: 'eme
 
 angular.module('tr.objects', [])
 .config(function($stateProvider, $urlRouterProvider) {
-
   Object.keys(types).forEach(function(singular) {
     var plural = types[singular];
+    var type = singular[0].toUpperCase() + singular.slice(1);
+
     var listState = {
       url: '/' + plural,
       views: {}
     };
     listState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/list.html',
-      controller: function($scope, $state, objects) {
+      controller: function($scope, $state, objects, trObject, setTitle) {
+        $scope.singular = singular;
+        setTitle('List of ' + plural)
         $scope.$on('objectsAdded', function() {
           $scope.objects = objects[plural]();
         });
@@ -22,6 +25,14 @@ angular.module('tr.objects', [])
             objects.delete(object.id);
           }
         }
+
+        $scope.create = function() {
+          $state.go('nav.create-' + singular)
+        }
+
+        $scope.modify = function(object) {
+          trObject.modify(object);
+        }
       }
     };
 
@@ -31,8 +42,9 @@ angular.module('tr.objects', [])
     }
     createState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/form.html',
-      controller: function($scope, $state, objects) {
-        $scope.object = {type: singular[0].toUpperCase() + singular.slice(1)}
+      controller: function($scope, $state, objects, setTitle) {
+        $scope.object = {type: type}
+        setTitle('Create a ' + singular)
         $scope.save = function(object) {
           objects.add(object);
           $state.go('nav.' + plural);
@@ -46,7 +58,8 @@ angular.module('tr.objects', [])
     }
     modifyState.views['nav-' + plural] = {
       templateUrl: 'app/trObject/form.html',
-      controller: function($scope, $state, $stateParams, objects) {
+      controller: function($scope, $state, $stateParams, objects, setTitle) {
+        setTitle('Modify a ' + singular)
         $scope.object = objects.get($stateParams.id)
         $scope.save = function(object) {
           objects.modify(object);
@@ -60,4 +73,11 @@ angular.module('tr.objects', [])
       .state('nav.create-' + singular, createState)
       .state('nav.modify-' + singular, modifyState)
   });
+}).factory('trObject', function($state) {
+  return {
+    modify: function(object) {
+      var singular = object.type.toLowerCase();
+      $state.go('nav.modify-' + singular, {id: object.id})
+    }
+  }
 });

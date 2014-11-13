@@ -12,7 +12,8 @@ angular.module('tr.home', [])
       views: {
         'nav-home': {
           templateUrl: 'app/home/home.html',
-          controller: function($scope, $localstorage) {
+          controller: function($scope, $localstorage, setTitle) {
+            setTitle('Dashboard')
             $scope.text = "hello world!"
           }
         }

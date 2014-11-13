@@ -71,4 +71,18 @@ angular.module('tr.service', [])
     })
     return objectsUtil;
   })
+
+  .factory('setTitle', function($rootScope) {
+    return function(subtitle, title) {
+      if (!$rootScope.navPage) {
+        $rootScope.navPage = {}
+      }
+      if (title) {
+        $rootScope.navPage.title = title;
+      }
+      if (subtitle) {
+        $rootScope.navPage.subtitle = subtitle;
+      }
+    }
+  })
   ;

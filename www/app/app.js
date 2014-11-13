@@ -39,8 +39,8 @@ angular.module('starter', ['ionic',
     .state('nav', {
       abstract: true,
       templateUrl: "app/tabs.html",
-      controller: function($scope, $state, $localstorage, $location, objects) {
-        var page = $scope.navPage = {title: "Total Recall"};
+      controller: function($scope, $rootScope, $state, $localstorage, $location, objects) {
+        var page = $rootScope.navPage = {title: "Total Recall"};
         page.title = 'Total Recall'
 
         $scope.$on('$stateChangeSuccess', function() {

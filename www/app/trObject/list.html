@@ -1,8 +1,8 @@
 <tr-view>
 
   <ion-nav-buttons side="right">
-    <button class="button ion-plus-round" ui-sref="nav.create-person">
-      New {{objectName}}
+    <button class="button ion-plus-round" ng-click="create()">
+      Add {{singular}}
     </button>
   </ion-nav-buttons>
 
@@ -14,7 +14,7 @@
     </div>
 
      <div class="item tabs tabs-secondary tabs-icon-left">
-      <a class="tab-item" ui-sref="nav.modify-person({id: object.id})">
+      <a class="tab-item" ng-click="modify(object)">
         <i class="icon ion-edit"></i>
         Modify
       </a>

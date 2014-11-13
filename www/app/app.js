@@ -8,9 +8,7 @@
 angular.module('starter', ['ionic',
   'tr.service',
   'tr.home',
-  'tr.people',
-  'tr.places',
-  'tr.things',
+  'tr.objects',
   'tr.emergency',
   'tr.directives'
 ])
@@ -43,50 +41,10 @@ angular.module('starter', ['ionic',
       templateUrl: "app/tabs.html",
       controller: function($scope, $state, $localstorage, $location, objects) {
         var page = $scope.navPage = {title: "Total Recall"};
-        $scope.objectName = 'Object'
         page.title = 'Total Recall'
 
         $scope.$on('$stateChangeSuccess', function() {
-          switch($state.current.name) {
-            case 'nav.home':
-              $scope.objectName = 'object';
-              page.subtitle = 'Dashboard'
-              break;
-            case 'nav.people':
-              $scope.objectName = 'person';
-              page.subtitle = 'People'
-              break;
-            case 'nav.create-person':
-              page.subtitle = 'Create Person'
-              break;
-            case 'nav.modify-person':
-              page.subtitle = 'Modify Person'
-              break;
-            case 'nav.places':
-              $scope.objectName = 'place'
-              page.subtitle = 'Places'
-              break;
-            case 'nav.create-place':
-              page.subtitle = 'Create Place'
-              break;
-            case 'nav.modify-place':
-              page.subtitle = 'Modify Place'
-              break;
-            case 'nav.things':
-              $scope.objectName = 'thing'
-              page.subtitle = 'Things'
-              break;
-            case 'nav.create-thing':
-              page.subtitle = 'Create Thing'
-              break;
-            case 'nav.modify-thing':
-              page.subtitle = 'Modify Thing'
-              break;
-            case 'nav.emergency':
-              $scope.objectName = 'object'
-              page.subtitle = 'Emergencies'
-              break;
-          }
+
         });
       }
     });

@@ -1,2 +1,27 @@
 <tr-view>
+
+  <ion-nav-buttons side="right">
+    <button class="button ion-plus-round" ui-sref="nav.create-place">
+      New {{objectName}}
+    </button>
+  </ion-nav-buttons>
+
+  <div class="card" ng-repeat="object in objects">
+    <div class="item item-avatar">
+      <img src="http://placehold.it/150x150" />
+      <h2>{{object.name}}</h2>
+      <p>{{object.notes}}</p>
+    </div>
+
+     <div class="item tabs tabs-secondary tabs-icon-left">
+      <a class="tab-item" ui-sref="nav.modify-place({id: object.id})">
+        <i class="icon ion-edit"></i>
+        Modify
+      </a>
+      <a class="tab-item" ng-click="delete(object)">
+        <i class="icon ion-trash-b"></i>
+        Delete
+      </a>
+    </div>
+  </div>
 </tr-view>

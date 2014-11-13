@@ -66,9 +66,21 @@ angular.module('starter', ['ionic',
               $scope.objectName = 'place'
               page.subtitle = 'Places'
               break;
+            case 'nav.create-place':
+              page.subtitle = 'Create Place'
+              break;
+            case 'nav.modify-place':
+              page.subtitle = 'Modify Place'
+              break;
             case 'nav.things':
               $scope.objectName = 'thing'
               page.subtitle = 'Things'
+              break;
+            case 'nav.create-thing':
+              page.subtitle = 'Create Thing'
+              break;
+            case 'nav.modify-thing':
+              page.subtitle = 'Modify Thing'
               break;
             case 'nav.emergency':
               $scope.objectName = 'object'

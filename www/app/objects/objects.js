@@ -17,10 +17,18 @@ angular.module('tr.objects', [])
             $scope.availableTypes = ['People', 'Places', 'Things'];
             $scope.object = {type: $stateParams.type || undefined};
 
+            var page = $scope.$eval('navPage');
+
+
             if ($scope.crud == 'modify') {
+            page.subtitle = 'Modify Object'
               $scope.object = objects.get($stateParams.id);
               console.log($scope.object)
             }
+            else {
+            page.subtitle = 'Create Object'
+            }
+
             $scope.create = function(object) {
               if ($scope.crud == 'create') {
                 objects.add(object);

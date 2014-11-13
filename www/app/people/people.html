@@ -1,7 +1,8 @@
-<ion-view title="Total Recall">
-  <ion-content class="padding">
-    <h1>People</h1>
-
+<ion-view title="{{navPage.title}}">
+  <div class="bar bar-subheader">
+    <h2 class="title">{{navPage.subtitle}}</h2>
+  </div>
+  <ion-content class="has-header has-subheader padding">
     <div class="card" ng-repeat="object in objects">
       <div class="item item-avatar">
         <img src="http://placehold.it/150x150" />

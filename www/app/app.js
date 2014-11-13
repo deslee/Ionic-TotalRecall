@@ -41,7 +41,7 @@ angular.module('starter', ['ionic',
     .state('nav', {
       abstract: true,
       templateUrl: "app/tabs.html",
-      controller: function($scope, $state, $localstorage, objects) {
+      controller: function($scope, $state, $localstorage, $location, objects) {
         $scope.newObject = function() {
           var type = $state.current.name.split('.')[1];
           if ($state.current.name != 'nav.manage-object') {
@@ -52,19 +52,31 @@ angular.module('starter', ['ionic',
           });
           }
         }
-
+        var page = $scope.navPage = {title: "Total Recall"};
         $scope.objectName = 'Object'
+        page.title = 'Total Recall'
 
         $scope.$on('$stateChangeSuccess', function() {
           switch($state.current.name) {
+            case 'nav.home':
+              $scope.objectName = 'object';
+              page.subtitle = 'Dashboard'
+              break;
             case 'nav.people':
-              $scope.objectName = 'person'
+              $scope.objectName = 'person';
+              page.subtitle = 'People'
               break;
             case 'nav.places':
               $scope.objectName = 'place'
+              page.subtitle = 'Places'
               break;
             case 'nav.things':
               $scope.objectName = 'thing'
+              page.subtitle = 'Things'
+              break;
+            case 'nav.emergency':
+              $scope.objectName = 'object'
+              page.subtitle = 'Emergencies'
               break;
           }
         });

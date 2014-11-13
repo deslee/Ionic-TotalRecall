@@ -1,6 +1,8 @@
-<ion-view title="Total Recall">
-  <ion-content class="padding">
-    <h1>{{crud == 'create' ? 'Create Object' : 'Modify Object'}}</h1>
+<ion-view title="{{navPage.title}}">
+  <div class="bar bar-subheader">
+    <h2 class="title">{{navPage.subtitle}}</h2>
+  </div>
+  <ion-content class="has-header has-subheader padding">
     <div class="list" id="create-object-list">
       <div class="item item-input">
         <input type="text" placeholder="Name" ng-model="object.name">

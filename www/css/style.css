@@ -5,5 +5,5 @@
 
 .object-icon {
   height: 8em;
-  width: 8em;
+  width: inherit !important;
 }

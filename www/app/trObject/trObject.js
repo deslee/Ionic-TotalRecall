@@ -22,6 +22,8 @@ angular.module('tr.objects', [])
           });
         }, function() {console.log('err'); console.log(arguments);}, { quality: 50,
         destinationType: navigator.camera.DestinationType.DATA_URL,
+        targetWidth: 500,
+        targetHeight: 500,
         sourceType: source });
       }
     }

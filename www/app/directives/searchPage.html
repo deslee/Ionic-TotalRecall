@@ -12,8 +12,11 @@
   </div>
 
   <ion-content class="has-header has-subheader padding">
-    <div ng-repeat="object in searchPage.results">
+    <div ng-repeat="object in searchPage.results" ng-show="searchPage.query.length > 0">
       <tr-object-component tr-object="object" detail="detail" modify="modify" delete="delete"></tr-object-component>
+    </div>
+    <div ng-show="searchPage.query.length == 0">
+      Enter your query in the search box
     </div>
   </ion-content>
 </ion-view>

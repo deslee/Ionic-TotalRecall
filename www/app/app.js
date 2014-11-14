@@ -88,7 +88,7 @@ angular.module('starter', ['ionic',
 
             $scope.$watch('searchPage.query', function(newQuery, oldQuery) {
               $scope.searchPage.results = objects.all().filter(function(object) {
-                return object.name.toLowerCase().indexOf(newQuery.toLowerCase()) != -1;
+                return object.name.toLowerCase().indexOf(newQuery.toLowerCase()) != -1 || (object.notes && object.notes.toLowerCase().indexOf(newQuery.toLowerCase()) != -1);
               });
             })
           }

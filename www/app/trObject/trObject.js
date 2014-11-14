@@ -3,8 +3,7 @@ angular.module('tr.objects', [])
 
   var types = {person: 'people', place: 'places', thing: 'things', emergency: 'emergencies'};
 
-  var icon = function(scope, $injector, object) {
-
+  var media = function(scope, $injector, object, propertyName) {
     var $ionicModal = $injector.get('$ionicModal');
     $ionicModal.fromTemplateUrl('app/directives/imagepicker.html', {
       scope: scope,
@@ -18,7 +17,7 @@ angular.module('tr.objects', [])
         navigator.camera.getPicture(function(data) {
           scope.modal.hide();
           scope.$apply(function() {
-            object.icon = data
+            object[propertyName] = data
           });
         }, function() {console.log('err'); console.log(arguments);}, { quality: 50,
         destinationType: navigator.camera.DestinationType.NATIVE_URI,
@@ -73,7 +72,8 @@ angular.module('tr.objects', [])
           objects.add(object);
           $state.go('nav.' + plural);
         }
-        $scope.icon = icon($scope, $injector, $scope.object);
+        $scope.icon = media($scope, $injector, $scope.object, 'icon');
+        $scope.attachment = media($scope, $injector, $scope.object, 'attachment');
       }
     };
 
@@ -91,7 +91,9 @@ angular.module('tr.objects', [])
           objects.modify(object);
           $state.go('nav.' + plural);
         }
-        $scope.icon = icon($scope, $injector, $scope.object);
+
+        $scope.icon = media($scope, $injector, $scope.object, 'icon');
+        $scope.attachment = media($scope, $injector, $scope.object, 'attachment');
       }
     }
 

@@ -12,13 +12,13 @@
     Email, Phone, Address
       Types: Person, Place
     -->
-    <div show-for-only="Person,Place">
+    <div show-for-only="Person,Place" singular="object.type">
       <div class="item item-input">
         <input type="email" placeholder="Email" ng-model="object.email">
       </div>
 
       <div class="item item-input">
-        <input type="email" placeholder="Phone" ng-model="object.phone">
+        <input type="text" placeholder="Phone" ng-model="object.phone">
       </div>
 
       <div class="item item-input">

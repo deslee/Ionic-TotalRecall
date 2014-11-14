@@ -1,0 +1,19 @@
+<ion-view title="{{navPage.title}}">
+
+  <div class="bar bar-subheader item-input-inset">
+
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios7-search placeholder-icon"></i>
+    <input type="search" placeholder="Search" ng-model="searchPage.query">
+  </label>
+  <button class="button button-clear">
+    Cancel
+  </button>
+  </div>
+
+  <ion-content class="has-header has-subheader padding">
+    <div ng-repeat="object in searchPage.results">
+      <tr-object-component tr-object="object" detail="detail" modify="modify" delete="delete"></tr-object-component>
+    </div>
+  </ion-content>
+</ion-view>

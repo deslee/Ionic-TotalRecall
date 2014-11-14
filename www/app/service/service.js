@@ -79,16 +79,15 @@ angular.module('tr.service', [])
   })
 
   .factory('setTitle', function($rootScope) {
-    return function(subtitle, title) {
+    return function(subtitle, back) {
       if (!$rootScope.navPage) {
         $rootScope.navPage = {}
-      }
-      if (title) {
-        $rootScope.navPage.title = title;
       }
       if (subtitle) {
         $rootScope.navPage.subtitle = subtitle;
       }
+      $rootScope.navPage.hasBack = Boolean(back);
+      $rootScope.navPage.previousState = back;
     }
   })
   ;

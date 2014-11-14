@@ -11,9 +11,9 @@ angular.module('tr.directives', [])
   .directive('showForOnly', function() {
     return {
       link: function(scope, elem, attr) {
-        var singular = scope.$eval('singular');
+        var singular = scope.singular;
         if (attr['showForOnly'].toLowerCase().split(',').filter(function(e) {
-          return e == singular
+          return e == singular.toLowerCase()
         }).length) {
         }
         else {
@@ -21,6 +21,23 @@ angular.module('tr.directives', [])
         }
       },
 
-      scope: false
+      scope: {
+        singular: '=singular'
+      }
+    }
+  })
+
+  .directive('trObjectComponent', function() {
+    return {
+      templateUrl: 'app/directives/trObjectComponent.html',
+      controller: function($scope) {
+      },
+      restrict: 'E',
+      scope: {
+        object: '=trObject',
+        modify: '=modify',
+        delete: '=delete',
+        detail: '=detail'
+      }
     }
   })

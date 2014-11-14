@@ -1,27 +1,11 @@
 <tr-view>
 
   <ion-nav-buttons side="right">
-    <button ng-show="singular != 'emergency'" class="button ion-plus-round" ng-click="create()">
-      Add {{singular}}
+    <button ng-show="singular != 'emergency'" class="button button-icon icon ion-plus-round" ng-click="create(singular)">
     </button>
   </ion-nav-buttons>
 
-  <div class="card" ng-repeat="object in objects">
-    <div class="item item-avatar">
-      <img src="{{object.icon ? object.icon : 'img/ionic.png'}}" class="object-icon" />
-      <h2>{{object.name}}</h2>
-      <p>{{object.notes}}</p>
-    </div>
-
-     <div class="item tabs tabs-secondary tabs-icon-left">
-      <a class="tab-item" ng-click="modify(object)">
-        <i class="icon ion-edit"></i>
-        Modify
-      </a>
-      <a class="tab-item" ng-click="delete(object)">
-        <i class="icon ion-trash-b"></i>
-        Delete
-      </a>
-    </div>
+  <div ng-repeat="object in objects">
+    <tr-object-component tr-object="object" detail="detail" modify="modify" delete="delete"></tr-object-component>
   </div>
 </tr-view>

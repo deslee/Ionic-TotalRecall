@@ -37,13 +37,62 @@ angular.module('starter', ['ionic',
     .state('nav', {
       abstract: true,
       templateUrl: "app/tabs.html",
-      controller: function($scope, $rootScope, $state, $localstorage, $location, objects) {
+      controller: function($scope, $rootScope, $state, $localstorage, $location,$ionicViewService, trObject, objects) {
         var page = $rootScope.navPage = {title: "Total Recall"};
-        page.title = 'Total Recall'
+
+        page.title = 'Total Recall';
+
+        page.back = function() {
+          $state.go(page.previousState);
+        }
+
+        page.search = function() {
+          $state.go('nav.search');
+        }
 
         $scope.$on('$stateChangeSuccess', function() {
 
         });
+
+        $scope.delete = function(object) {
+          if(confirm("Are you sure?")) {
+            objects.delete(object.id);
+          }
+        }
+
+        $scope.create = function(singular) {
+          $state.go('nav.create-' + singular)
+        }
+
+        $scope.detail = function(object) {
+          trObject.detail(object);
+        }
+
+        $scope.modify = function(object) {
+          trObject.modify(object);
+        }
+      }
+    })
+
+    .state('nav.search', {
+      url: '/search',
+      views: {
+        'nav-search': {
+          templateUrl: 'app/directives/searchPage.html',
+          controller: function($scope, setTitle, objects) {
+            setTitle('Search');
+            $scope.searchPage = {
+              query: '',
+              results: objects.all()
+            }
+
+            $scope.$watch('searchPage.query', function(newQuery, oldQuery) {
+              $scope.searchPage.results = objects.all().filter(function(object) {
+                return object.name.toLowerCase().indexOf(newQuery.toLowerCase()) != -1;
+              });
+            })
+          }
+        }
       }
     });
 

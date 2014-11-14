@@ -18,12 +18,14 @@ angular.module('tr.objects', [])
         navigator.camera.getPicture(function(data) {
           scope.modal.hide();
           scope.$apply(function() {
-            object.icon = "data:image/png;base64," + data
+            object.icon = data
           });
         }, function() {console.log('err'); console.log(arguments);}, { quality: 50,
-        destinationType: navigator.camera.DestinationType.DATA_URL,
+        destinationType: navigator.camera.DestinationType.NATIVE_URI,
         targetWidth: 500,
         targetHeight: 500,
+        saveToPhotoAlbum: true,
+        mediaType: navigator.camera.MediaType.PICTURE, // PICTURE
         sourceType: source });
       }
     }
@@ -53,25 +55,7 @@ angular.module('tr.objects', [])
         $scope.$on('objectsAdded', function() {
           $scope.objects = objects[plural]();
         });
-        console.log(objects)
-        console.log(plural)
-        console.log(objects[plural])
         $scope.objects = objects[plural]();
-        console.log($scope.objects)
-
-        $scope.delete = function(object) {
-          if(confirm("Are you sure?")) {
-            objects.delete(object.id);
-          }
-        }
-
-        $scope.create = function() {
-          $state.go('nav.create-' + singular)
-        }
-
-        $scope.modify = function(object) {
-          trObject.modify(object);
-        }
       }
     };
 
@@ -84,7 +68,7 @@ angular.module('tr.objects', [])
       controller: function($scope, $state, $injector, objects, setTitle) {
         $scope.singular = singular;
         $scope.object = {type: type}
-        setTitle('Create a ' + singular)
+        setTitle('Create a ' + singular, 'nav.' + plural)
         $scope.save = function(object) {
           objects.add(object);
           $state.go('nav.' + plural);
@@ -101,7 +85,7 @@ angular.module('tr.objects', [])
       templateUrl: 'app/trObject/form.html',
       controller: function($scope, $state, $injector, $stateParams, objects, setTitle) {
         $scope.singular = singular;
-        setTitle('Modify a ' + singular)
+        setTitle('Modify a ' + singular, 'nav.' + plural)
         $scope.object = objects.get($stateParams.id);
         $scope.save = function(object) {
           objects.modify(object);
@@ -111,16 +95,33 @@ angular.module('tr.objects', [])
       }
     }
 
+    var detailState = {
+      url: '/'+plural+'/detail/:id',
+      views: {}
+    };
+    detailState.views['nav-'+plural] = {
+      templateUrl: 'app/trObject/detail.html',
+      controller: function($scope, $stateParams, objects, setTitle) {
+        $scope.object = objects.get($stateParams.id);
+          setTitle('Detail for ' + $scope.object.name, 'nav.' + plural)
+      },
+    }
+
     $stateProvider
       .state('nav.' + plural, listState)
       .state('nav.create-' + singular, createState)
       .state('nav.modify-' + singular, modifyState)
+      .state('nav.detail-' + singular, detailState)
   });
 }).factory('trObject', function($state) {
   return {
     modify: function(object) {
       var singular = object.type.toLowerCase();
       $state.go('nav.modify-' + singular, {id: object.id})
+    },
+    detail: function(object) {
+      var singular = object.type.toLowerCase();
+      $state.go('nav.detail-' + singular, {id: object.id})
     }
   }
 });

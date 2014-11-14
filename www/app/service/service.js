@@ -28,6 +28,7 @@ angular.module('tr.service', [])
       add: function(object) {
         var id = $localstorage.get('id', 0);
         object.id = ++id;
+        object.lastModified = Date.now();
         $localstorage.set('id', id);
         var objects = $localstorage.getObject('objects', []);
         objects.push(object);
@@ -42,6 +43,7 @@ angular.module('tr.service', [])
         return null
       },
       modify: function(object) {
+        object.lastModified = Date.now();
         var objects = objectsUtil.all().map(function(o) {
           if (o.id == object.id) {
             return object;

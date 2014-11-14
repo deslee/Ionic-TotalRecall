@@ -94,7 +94,23 @@ angular.module('starter', ['ionic',
           }
         }
       }
-    });
+    })
+
+    .state('nav.recents', {
+      url: '/recent',
+      views: {
+        'nav-recent': {
+          templateUrl: '/app/directives/recentsPage.html',
+          controller: function($scope, setTitle, objects) {
+            setTitle('Recents')
+            $scope.objects = objects.all().sort(function(a, b) {
+              return b.lastModified - a.lastModified
+            });
+          }
+        }
+      }
+    })
+    ;
 
     $urlRouterProvider.otherwise('/home');
 

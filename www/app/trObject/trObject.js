@@ -5,17 +5,21 @@ angular.module('tr.objects', [])
 
   var media = function(scope, $injector, object, propertyName) {
     var $ionicModal = $injector.get('$ionicModal');
+
+    var modalScope = scope.$new();
+
     $ionicModal.fromTemplateUrl('app/directives/imagepicker.html', {
-      scope: scope,
+      scope: modalScope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      scope.modal = modal;
+      scope['modal-' + propertyName] = modal;
+      console.log(scope['modal-' + propertyName]);
     })
 
     var getPicture = function(source) {
       return function() {
         navigator.camera.getPicture(function(data) {
-          scope.modal.hide();
+          scope['modal-' + propertyName].hide();
           scope.$apply(function() {
             object[propertyName] = data
           });
@@ -30,11 +34,11 @@ angular.module('tr.objects', [])
     }
 
     if (navigator.camera) {
-      scope.picture = getPicture(navigator.camera.PictureSourceType.CAMERA);
-      scope.gallery = getPicture(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+      modalScope.picture = getPicture(navigator.camera.PictureSourceType.CAMERA);
+      modalScope.gallery = getPicture(navigator.camera.PictureSourceType.PHOTOLIBRARY);
     }
     return function() {
-      scope.modal.show()
+      scope['modal-' + propertyName].show()
     }
   };
 

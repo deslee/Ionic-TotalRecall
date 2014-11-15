@@ -32,12 +32,19 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="">
     </ion-nav-bar>
 
       <ion-nav-buttons side="left">
-        <button class="button ion-home" ui-sref="nav.home">
-          Dashboard
+        <button class="button button-icon ion-home positive" ui-sref="nav.home">
+        </button>
+        <button class="button button-icon ion-ios7-clock energized" ui-sref="nav.recents">
+        </button>
+      </ion-nav-buttons>
+
+
+      <ion-nav-buttons side="right">
+        <button class="icon ion-search button button-icon" ng-click="navPage.search()">
         </button>
       </ion-nav-buttons>
     <!--

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.myapp888367" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.deslee.totalrecall" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Total Recall</name>
   <description>
         Total Recall: An memory project.
     </description>
-  <author email="desmondclee@gmail.com" href="http://deslee.me/">
+    <author email="desmondclee@gmail.com" href="http://deslee.me/">
       Desmond Lee
     </author>
+    <author email="jsfraptor26@gmail.com" href="#">
+      Andrew Pohlman
+    </author>
+    <author email="michael@muggler.me" href="http://muggler.me">
+      Michael Muggler
+    </author>
+
+
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>

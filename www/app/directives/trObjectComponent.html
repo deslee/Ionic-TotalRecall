@@ -1,6 +1,6 @@
 <div class="card tr-card">
   <div class="item item-avatar">
-    <img src="{{object.icon ? object.icon : 'img/ionic.png'}}" class="object-icon" />
+    <img ng-src="{{object.icon ? object.icon : 'img/'+navPage.getDefaultImage(object.type)}}" class="object-icon" />
     <h2>{{object.name}}</h2>
     <p>{{object.type}}</p>
   </div>

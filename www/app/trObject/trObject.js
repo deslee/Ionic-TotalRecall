@@ -54,7 +54,7 @@ angular.module('tr.objects', [])
       templateUrl: 'app/trObject/list.html',
       controller: function($scope, $state, $injector, objects, trObject, setTitle) {
         $scope.singular = singular;
-        setTitle('List of ' + plural)
+        setTitle('List of ' + plural[0].toUpperCase() + plural.slice(1))
         $scope.$on('objectsAdded', function() {
           $scope.objects = objects[plural]();
         });

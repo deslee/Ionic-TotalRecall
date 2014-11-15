@@ -73,7 +73,7 @@ angular.module('tr.service', [])
         var plural = types[singular];
         objectsUtil[plural] = function search() {
           return objectsUtil.all().filter(function(object) {
-            return object.type == singular[0].toUpperCase() + singular.slice(1);
+            return object.type == singular[0].toUpperCase() + singular.slice(1) && object.emergency != true;
           });
         }
     })

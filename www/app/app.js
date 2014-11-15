@@ -38,6 +38,17 @@ angular.module('starter', ['ionic',
       abstract: true,
       templateUrl: "app/tabs.html",
       controller: function($scope, $rootScope, $state, $localstorage, $location,$ionicViewService, trObject, objects) {
+
+
+        var types = ['person', 'place', 'thing'];
+
+
+        window.onbeforeunload = function() {
+            if ( types.map(function(type) {return ['nav.create-'+type,'nav.modify-'+type]}).reduce(function(one,two){return one.concat(two)}).indexOf($state.current.name) != -1 ) {
+                return "You have started writing or editing a post."
+            }
+        }
+
         var page = $rootScope.navPage = {title: "Total Recall"};
 
         page.title = 'Total Recall';
@@ -48,6 +59,19 @@ angular.module('starter', ['ionic',
 
         page.search = function() {
           $state.go('nav.search');
+        }
+
+        page.getDefaultImage = function(type) {
+          switch(type) {
+            case 'Person':
+              return 'person.png'
+            case 'Place':
+              return 'location.png'
+            case 'Thing':
+              return 'hammer.png'
+            default:
+              return 'home.png'
+          }
         }
 
         $scope.$on('$stateChangeSuccess', function() {
@@ -100,7 +124,7 @@ angular.module('starter', ['ionic',
       url: '/recent',
       views: {
         'nav-recent': {
-          templateUrl: '/app/directives/recentsPage.html',
+          templateUrl: 'app/directives/recentsPage.html',
           controller: function($scope, setTitle, objects) {
             setTitle('Recents')
             $scope.objects = objects.all().sort(function(a, b) {

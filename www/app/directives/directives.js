@@ -30,7 +30,8 @@ angular.module('tr.directives', [])
   .directive('trObjectComponent', function() {
     return {
       templateUrl: 'app/directives/trObjectComponent.html',
-      controller: function($scope) {
+      controller: function($scope, $rootScope) {
+        $scope.navPage = $rootScope.navPage
       },
       restrict: 'E',
       scope: {

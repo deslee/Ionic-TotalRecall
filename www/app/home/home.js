@@ -13,8 +13,7 @@ angular.module('tr.home', [])
         'nav-home': {
           templateUrl: 'app/home/home.html',
           controller: function($scope, $localstorage, setTitle) {
-            setTitle('Dashboard')
-            $scope.text = "hello world!"
+            setTitle('Home')
           }
         }
       }

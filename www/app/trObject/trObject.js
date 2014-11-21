@@ -42,6 +42,12 @@ angular.module('tr.objects', [])
     }
   };
 
+  var removeMedia = function(scope, $injector, object, propertyName) {
+    return function() {
+      object[propertyName] = undefined;
+    }
+  }
+
   Object.keys(types).forEach(function(singular) {
     var plural = types[singular];
     var type = singular[0].toUpperCase() + singular.slice(1);
@@ -78,6 +84,8 @@ angular.module('tr.objects', [])
         }
         $scope.icon = media($scope, $injector, $scope.object, 'icon');
         $scope.attachment = media($scope, $injector, $scope.object, 'attachment');
+        $scope.removeIcon = removeMedia($scope, $injector, $scope.object, 'icon')
+        $scope.removeAttachment = removeMedia($scope, $injector, $scope.object, 'attachment');
       }
     };
 
@@ -98,6 +106,8 @@ angular.module('tr.objects', [])
 
         $scope.icon = media($scope, $injector, $scope.object, 'icon');
         $scope.attachment = media($scope, $injector, $scope.object, 'attachment');
+        $scope.removeIcon = removeMedia($scope, $injector, $scope.object, 'icon');
+        $scope.removeAttachment = removeMedia($scope, $injector, $scope.object, 'attachment');
       }
     }
 
